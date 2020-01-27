@@ -19,14 +19,14 @@ a {color: #004084;}
 
 .blgpst-cvr-ttl:hover {text-decoration:none;}
 .blgpst-cvr-ttl {font-size:14px; color:#888;}
-.crd-blgpst-cvr:hover {box-shadow: 3px #EEE;}
-.crd-blgpst-cvr {
-  background: red;
-  animation: mymove 5s infinite;
+.crd-blgpst-cvr:hover {box-shadow: 0px 10px #EEE;}
+.crd-blgpst-cvr:hover {
+  background: #FFFFFF;
+  animation: mymove 5s 1;
 }
 @keyframes mymove {
-  from {background-color: red;}
-  to {background-color: blue;}
+  from {background-color: #FFFFFF;}
+  to {background-color: #CCCCCC;}
 }
 
 .blog .conversation {
