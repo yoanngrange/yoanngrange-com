@@ -9,7 +9,7 @@ a {color: #004084;}
 .blog strong {font-weight: bolder;}
 .blog p a {text-decoration: underline;}
 .blog blockquote {border-right: 1px solid #CCC; background: #EEE; padding: 2rem; border-radius: 2rem;}
-.blog blockquote p {margin-bottom: 0; font-size: 1.5rem;}
+.blog blockquote p {margin-bottom: 0; font-size: 1.35rem;}
 .blog ul, .blog ol {margin-bottom: 0.5rem; margin-top: 1.5rem;}
 .blog ul li, .blog ol li {font-size: 1.25rem; margin-bottom: 1.4rem;}
 
