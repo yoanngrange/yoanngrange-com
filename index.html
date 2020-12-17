@@ -19,9 +19,13 @@
       gtag('config', 'UA-2771720-9');
     </script>
     <script>
-    var photos = document.querySelector('.photos');
-    for (var i = photos.children.length; i >= 0; i--) {
-        photos.appendChild(photos.children[Math.random() * i | 0]);
+    onload = function(){
+    var parent = document.getElementById("shuffle");
+    var frag = document.createDocumentFragment();
+    while (parent.children.length) {
+        frag.appendChild(parent.children[Math.floor(Math.random() * parent.children.length)]);
+    }
+    parent.appendChild(frag);
     }
     </script>
 </head>
@@ -151,7 +155,7 @@
         <a id="photography"></a>
         <h2>Photography</h2>
         <br>
-        <div class="row photos">
+        <div class="row" id="shuffle">
             <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="card"><a href="https://farm1.staticflickr.com/148/434879423_0ce517fc2c_b.jpg" target="_blank"><img alt="photo" class="d-block w-100 card-img-top" src="https://farm1.staticflickr.com/148/434879423_0ce517fc2c_b_d.jpg"></a></div>
             </div>
