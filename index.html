@@ -22,7 +22,7 @@
         </script>
         <script>
             onload = function () {
-                var parent = document.getElementById("shuffle");
+                var parent = document.getElementByClass("shuffle");
                 var frag = document.createDocumentFragment();
                 while (parent.children.length) {
                     frag.appendChild(parent.children[Math.floor(Math.random() * parent.children.length)]);
@@ -157,7 +157,7 @@
             <a id="photography"></a>
             <h2>Photography</h2>
             <br />
-            <div class="row" id="shuffle">
+            <div class="row shuffle">
                 <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="card">
                         <a href="https://farm1.staticflickr.com/148/434879423_0ce517fc2c_b.jpg" target="_blank"><img alt="photo" class="d-block w-100 card-img-top" src="https://farm1.staticflickr.com/148/434879423_0ce517fc2c_b_d.jpg" /></a>
@@ -490,80 +490,80 @@
                     </div>
                 </div>
             </div>
-            <!--<br>
-        <hr>
-        <br>
-        <a id="woodworking"></a>
-        <h2>Woodworking</h2>
-        <br>
-        <div class="row">
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/swing.jpg"></div>
+            <br />
+            <hr />
+            <br />
+            <a id="woodworking"></a>
+            <h2>Woodworking</h2>
+            <br />
+            <div class="row shuffle">
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/swing.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/bench.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/corner.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/workshop1.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/adirondack.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/workshop2.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/table.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/stock.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/bateau.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/table-langer.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/palissade2.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/palissade3.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/terrasse1.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/terrasse2.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/terrasse3.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/terrasse4.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/terrasse5.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/mangeoire.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/shelves.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/screws.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/furniture-01.jpg" /></div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/furniture-02.jpg" /></div>
+                </div>
             </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/bench.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/corner.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/workshop1.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/adirondack.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/workshop2.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/table.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/stock.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/bateau.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/table-langer.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/palissade2.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/palissade3.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/terrasse1.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/terrasse2.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/terrasse3.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/terrasse4.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/terrasse5.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/mangeoire.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/shelves.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/screws.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/furniture-01.jpg"></div>
-            </div>
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="card"><img alt="photo" class="d-block w-100 card-img-top" src="img/woodworking/furniture-02.jpg"></div>
-            </div>
-        </div>-->
         </div>
     </body>
 </html>
