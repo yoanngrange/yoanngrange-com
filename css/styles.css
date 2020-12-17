@@ -11,7 +11,7 @@ a {color: #004084;}
 .blog blockquote {border-right: 1px solid #CCC; background: #EEE; padding: 2rem; border-radius: 2rem;}
 .blog blockquote p {margin-bottom: 0; font-size: 1.5rem;}
 .blog ul, .blog ol {margin-bottom: 0.5rem; margin-top: 1.5rem;}
-.blog ul li, .blog ol li {font-size: 1.45rem; margin-bottom: 0.8rem;}
+.blog ul li, .blog ol li {font-size: 1.25rem; margin-bottom: 1.4rem;}
 
 .post-title {font-size: 2.15rem; letter-spacing: -0.025rem;}
 .img-full {width: 100%;margin-bottom: 2rem;}
