@@ -5,7 +5,7 @@ p.lead {font-weight: 300;}
 a {color: #004084;}
 
 .blog * {font-family: 'Montserrat', sans-serif; font-weight: 400; margin-bottom: 2rem;}
-.blog p {font-size: 1.35rem;}
+.blog p {font-size: 1.15rem; line-height: 1.75rem;}
 .blog strong {font-weight: bolder;}
 .blog p a {text-decoration: underline;}
 .blog blockquote {border-right: 1px solid #CCC; background: #EEE; padding: 2rem; border-radius: 2rem;}
