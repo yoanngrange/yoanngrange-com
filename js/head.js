@@ -1,4 +1,4 @@
-lass Head extends HTMLElement {
+class Head extends HTMLElement {
   constructor() {
     super();
   }
