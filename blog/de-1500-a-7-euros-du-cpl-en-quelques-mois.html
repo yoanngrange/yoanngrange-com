@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr" itemscope itemtype="http://schema.org/Article">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <script src="../js/blogHead.js" type="text/javascript" defer></script>
+        <script src="../js/blogHeader.js" type="text/javascript" defer></script>
+        <script src="../js/footer.js" type="text/javascript" defer></script>
+    
+        <blog-head-component></blog-head-component>
+        
         <title>Comment on est passé d'un coût d'acquisition par lead de 1 500 € à 7 € en quelques mois ? - Yoann Grange Blog</title>
         <meta name="description" content="Retour d'expérience sur le renouvellement d'une stratégie marketing au sein d'un groupe du machinisme agricole." />
-        <meta name="author" content="Yoann Grange" />
-        <link href="../css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
-        <link href="../css/styles.css" rel="stylesheet" />
-
-        <!-- Schema.org markup for Google+ -->
-        <meta itemprop="name" content="Comment on est passé d'un coût d'acquisition par lead de 1 500 € à 7 € en quelques mois ?" />
-        <meta itemprop="description" content="Retour d'expérience sur le renouvellement d'une stratégie marketing au sein d'un groupe du machinisme agricole." />
-        <meta itemprop="image" content="https://www.yoanngrange.com/img/blog/001-rover.jpg" />
 
         <!-- Twitter Card data -->
         <meta name="twitter:card" content="summary_large_image" />
@@ -24,36 +18,12 @@
         <meta name="twitter:creator" content="@yoanngrange" />
         <!-- Twitter summary card with large image must be at least 280x150px -->
         <meta name="twitter:image:src" content="https://www.yoanngrange.com/img/blog/001-rover.jpg" />
-
-        <!-- Open Graph data -->
-        <meta property="og:title" content="Comment on est passé d'un coût d'acquisition par lead de 1 500 € à 7 € en quelques mois ?" />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://www.yoanngrange.com/blog/de-1500-a-7-euros-du-cpl-en-quelques-mois.html" />
-        <meta property="og:image" content="https://www.yoanngrange.com/img/blog/001-rover.jpg" />
-        <meta property="og:description" content="Retour d'expérience sur le renouvellement d'une stratégie marketing au sein d'un groupe du machinisme agricole." />
-        <meta property="og:site_name" content="Yoann Grange Blog" />
-        <meta property="article:published_time" content="2018-12-30T19:02:00+01:00" />
-        <meta property="article:modified_time" content="2018-12-30T19:02:00+01:00" />
         
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-2771720-9"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-2771720-9');
-        </script>
     </head>
 
     <body>
         
-        <section class="jumbotron text-center">
-            <div class="container">
-                <h2 class="jumbotron-heading"><a href="../index.html">Yoann Grange</a></h2>
-                <p class="lead text-muted">Product Manager, Marketer &amp; Designer</p>
-                <p><a href="tel:+33643677814">06 43 67 78 14</a> - <a href="https://twitter.com/yoanngrange">@yoanngrange</a> - <a href="mailto:yoann.grange@gmail.com">yoann.grange@gmail.com</a></p>
-            </div>
-        </section>
+        <blog-header-component></blog-header-component>
 
         <div class="blog">
             <div class="container">
@@ -212,5 +182,8 @@
                 </div>
             </div>
         </div>
+        
+        <footer-component></footer-component>
+        
     </body>
 </html>
