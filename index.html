@@ -1,49 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <script src="https://try.abtasty.com/1b82ffcdb850dcb51d7a4977aea6019a.js"></script>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="Yoann Grange" />
+        <script src="js/head.js" type="text/javascript" defer></script>
+        <script src="js/header.js" type="text/javascript" defer></script>
+        <script src="js/footer.js" type="text/javascript" defer></script>
+    
+        <head-component></head-component>
+        
         <title>Yoann Grange, Product Manager, Marketer &amp; Designer</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
-        <script>
-            onload = function () {
-                var parent = document.getElementById("shuffle");
-                var frag = document.createDocumentFragment();
-                while (parent.children.length) {
-                    frag.appendChild(parent.children[Math.floor(Math.random() * parent.children.length)]);
-                }
-                parent.appendChild(frag);
-                var parent = document.getElementById("ww");
-                var frag = document.createDocumentFragment();
-                while (parent.children.length) {
-                    frag.appendChild(parent.children[Math.floor(Math.random() * parent.children.length)]);
-                }
-                parent.appendChild(frag);
-            };
-        </script>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-2771720-9"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-2771720-9');
-        </script>
+        <meta name="description" content="" />
+        
+        <script src="js/shuffle.js" type="text/javascript" defer></script>
     </head>
     <body>
-        <section class="jumbotron text-center">
-            <div class="container">
-                <h1 class="jumbotron-heading">Yoann Grange</h1>
-                <p class="lead">Product Manager, Marketer &amp; Designer</p>
-                <p><a href="tel:+33643677814">06 43 67 78 14</a> - <a href="https://twitter.com/yoanngrange">@yoanngrange</a> - <a href="mailto:yoann.grange@gmail.com">yoann.grange@gmail.com</a></p>
-            </div>
-        </section>
+        
+        <header-component></header-component>
+        
         <div class="container">
             <a id="blog"></a>
             <h2>Blog</h2>
@@ -570,5 +542,8 @@
                 </div>
             </div>
         </div>
+        
+        <footer-component></footer-component>
+        
     </body>
 </html>
