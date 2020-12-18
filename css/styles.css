@@ -3,21 +3,10 @@ h1, h2, h3, h4, h5, h6 {font-weight: 600;}
 .card {margin-bottom: 2rem;}
 a {color: #262173;}
 
-.jumbotron {
-background: rgb(38,33,115);
-background: linear-gradient(135deg, rgba(38,33,115,1) 0%, rgba(37,229,255,1) 100%);
-}
+.jumbotron {background: rgb(38,33,115); background: linear-gradient(135deg, rgba(38,33,115,1) 0%, rgba(37,229,255,1) 100%);}
 .jumbotron h1 {margin-bottom: 1.5rem;}
-.jumbotron p.lead {margin-bottom: 0.3rem;}
-
-.jumbotron h1 a, .jumbotron h1 a:hover, .jumbotron h1 a:active, .jumbotron h2 a, .jumbotron h2 a:hover, .jumbotron h2 a:active {
-  background: rgb(235,234,250);
-  background: linear-gradient(135deg, rgba(235,234,250,1) 0%, rgba(202,214,215,1) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.jumbotron p a, .jumbotron p a:hover, .jumbotron p a:active { color: #FFF;}
-.jumbotron p { color:#CCC;}
+.jumbotron p.p1, .jumbotron p.p2 {margin-bottom: 0.3rem;}
+.jumbotron h1 a, .jumbotron h1 a:hover, .jumbotron h1 a:active, .jumbotron h2 a, .jumbotron h2 a:hover, .jumbotron h2 a:active, .jumbotron p, .jumbotron p a, .jumbotron p a:hover, .jumbotron p a:active { color: #FFF;}
 
 .blog * {font-family: 'Montserrat', sans-serif; font-weight: 400; margin-bottom: 2rem;}
 .blog p {font-size: 1.15rem; line-height: 1.75rem;}
