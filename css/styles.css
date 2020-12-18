@@ -7,6 +7,8 @@ a {color: #262173;}
 background: rgb(38,33,115);
 background: linear-gradient(135deg, rgba(38,33,115,1) 0%, rgba(37,229,255,1) 100%);
 }
+.jumbotron h1 {margin-bottom: 1.5rem;}
+.jumbotron p.lead {margin-bottom: 0.3rem;}
 .jumbotron h1, .jumbotron p a, .jumbotron p a:hover, .jumbotron p a:active { color: #FFF;}
 .jumbotron p { color:#CCC;}
 
