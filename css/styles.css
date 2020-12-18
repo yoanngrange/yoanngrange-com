@@ -10,6 +10,11 @@ body {
 }
  a {
     color: #262173;
+    text-decoration:none;
+}
+ a:hover {
+    color: #25E5FF;
+    text-decoration:underline;
 }
  .jumbotron {
     background: rgb(38,33,115);
