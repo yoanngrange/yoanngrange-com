@@ -21,7 +21,7 @@ body {
      background: linear-gradient(135deg, rgba(38,33,115,1) 0%, rgba(37,229,255,1) 100%);
      border-radius:0px;
 }
- .jumbotron h1 {
+ .jumbotron h1, .jumbotron h2 {
     margin-bottom: 1.5rem;
 }
  .jumbotron p.p1, .jumbotron p.p2 {
@@ -29,6 +29,12 @@ body {
 }
  .jumbotron h1 a, .jumbotron h1 a:hover, .jumbotron h1 a:active, .jumbotron h2 a, .jumbotron h2 a:hover, .jumbotron h2 a:active, .jumbotron p, .jumbotron p a, .jumbotron p a:hover, .jumbotron p a:active {
      color: #FFF;
+}
+ .jumbotron h1 a .jumbotron h2 a, .jumbotron p a {
+     text-decoration: none;
+}
+.jumbotron h1 a:hover, .jumbotron h1 a:active, .jumbotron h2 a:hover, .jumbotron h2 a:active, .jumbotron p a:hover, .jumbotron p a:active {
+     text-decoration: underline;
 }
  .blog * {
     font-family: 'Montserrat', sans-serif;
