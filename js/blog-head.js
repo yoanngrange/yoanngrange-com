@@ -1,4 +1,4 @@
-class Blog-Head extends HTMLElement {
+class blogHead extends HTMLElement {
   constructor() {
     super();
   }
@@ -33,4 +33,4 @@ class Blog-Head extends HTMLElement {
   }
 }
 
-customElements.define('blog-head-component', Blog-Head);
+customElements.define('blog-head-component', blogHead);
