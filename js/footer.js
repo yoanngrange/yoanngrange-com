@@ -5,7 +5,9 @@ class Footer extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = `
-    <footer></footer>
+    <footer class="text-center"><a href="../index.html">&laquo; Back home</a></footer>
+    <br>
+    <br>
     `;
   }
 }

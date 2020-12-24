@@ -13,13 +13,10 @@ class blogHead extends HTMLElement {
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
     <link href="../css/styles.css" rel="stylesheet" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-    <link rel="manifest" href="../site.webmanifest">
-    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#262173">
-    <meta name="msapplication-TileColor" content="#262173">
-    <meta name="theme-color" content="#262173">
+    <link rel="icon" href="../favicon.ico" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" sizes="any" />
+    <link rel="apple-touch-icon" href="../fav-apple.png" />
+    <link rel="manifest" href="../manifest.webmanifest" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-2771720-9"></script>
