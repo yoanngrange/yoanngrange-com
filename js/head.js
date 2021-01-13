@@ -5,7 +5,6 @@ class Head extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = `
-    <script type="text/javascript" src="https://try.abtasty.com/1b82ffcdb850dcb51d7a4977aea6019a.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="author" content="Yoann Grange" />
