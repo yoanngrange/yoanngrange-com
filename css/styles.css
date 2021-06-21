@@ -5,9 +5,23 @@ body {
  h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
 }
- .card {
+.card {
     margin-bottom: 2rem;
 }
+
+.card-blog-link {
+    text-decoration: none;
+    color:#393939;
+}
+
+.card-blog-link:hover {
+    text-decoration: none;
+}
+
+.card-blog-link h2.card-title {
+    font-size: 1.2rem;
+}
+
  a {
     color: #2586BB;
     text-decoration:none;
@@ -20,6 +34,8 @@ body {
     background: rgb(38,33,115);
      background: linear-gradient(135deg, rgba(38,33,115,1) 0%, rgba(37,229,255,1) 100%);
      border-radius:0px;
+     padding: 3rem 0px;
+     margin-bottom: 3rem;
 }
  .jumbotron h1, .jumbotron h2 {
     margin-bottom: 1.5rem;
