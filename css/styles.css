@@ -9,6 +9,10 @@ body {
     margin-bottom: 2rem;
 }
 
+.section-blog .card:hover {
+    box-shadow: 0px 0px 30px 0px #d3d3d3;
+}
+
 .card-blog-link {
     text-decoration: none;
     color:#393939;
