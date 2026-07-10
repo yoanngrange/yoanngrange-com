@@ -5,12 +5,13 @@ class blogHeader extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = `
-    <section class="jumbotron text-center">
-        <div class="container">
+    <header class="hero text-center">
+        <div class="container py-4">
             <h2><a href="../index.html">Yoann Grange</a></h2>
-            <p class="p2"><a href="mailto:yoann.grange@gmail.com">yoann.grange@gmail.com</a></p>
+            <p><a href="mailto:yoann.grange@gmail.com">yoann.grange@gmail.com</a></p>
+            <p><a class="btn btn-outline-light" href="../index.html">Retour à l’accueil</a></p>
         </div>
-    </section>
+    </header>
     `;
   }
 }

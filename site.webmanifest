@@ -2,12 +2,8 @@
     "name": "YG",
     "short_name": "YG",
     "icons": [
-        {
-            "icons": [
-              { "src": "/fav-192.png", "type": "image/png", "sizes": "192x192" },
-              { "src": "/fav-512.png", "type": "image/png", "sizes": "512x512" }
-            ]
-          }
+        { "src": "fav-apple.png", "type": "image/png", "sizes": "192x192" },
+        { "src": "favicon.svg", "type": "image/svg+xml", "sizes": "any" }
     ],
     "theme_color": "#262173",
     "background_color": "#262173",
