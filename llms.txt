@@ -13,6 +13,7 @@
 - [Galerie végétale](https://www.yoanngrange.com/galerie-vegetale.html): photos de plantes et de jardin, 2022-2026
 
 ## Blog
+- [L'ère du repli, la mort annoncée de l'hypertextualité](https://www.yoanngrange.com/blog/ere-repli-mort-hypertextualite.html) (28/07/2026)
 - [How do you prioritize?](https://www.yoanngrange.com/blog/how-do-you-prioritize.html) (29/04/2021)
 - [Delivering value & reducing risk](https://www.yoanngrange.com/blog/delivering-value-and-reducing-risk.html) (14/07/2020)
 - [Agilité, vitesse & biais cognitif](https://www.yoanngrange.com/blog/agilite-vitesse-et-biais-cognitif.html) (04/10/2019)
