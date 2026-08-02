@@ -10,7 +10,7 @@
 
 ## Pages
 - [Accueil](https://www.yoanngrange.com/): présentation, projets et parcours
-- [Galerie végétale](https://www.yoanngrange.com/galerie-vegetale.html): photos de plantes et de jardin, 2022-2026
+- [Galerie végétale](https://www.yoanngrange.com/plant-gallery.html): photos de plantes et de jardin, 2022-2026
 
 ## Blog
 - [L'ère du repli, la mort annoncée de l'hypertextualité](https://www.yoanngrange.com/blog/ere-repli-mort-hypertextualite.html) (28/07/2026)
