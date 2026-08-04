@@ -77,6 +77,46 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 3rem;
 }
 
+.change-item {
+  margin: 1.75rem 0;
+  padding-left: 1.1rem;
+  border-left: 3px solid var(--border);
+}
+
+.change-item p {
+  margin-bottom: 0.4rem;
+}
+
+.change-item .change-problem {
+  color: var(--muted);
+}
+
+.blog-screenshot-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 2.5rem 0;
+}
+
+.blog-screenshot-row figure {
+  margin: 0;
+  max-width: 240px;
+  width: 100%;
+}
+
+.blog-screenshot-row img {
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(20, 33, 61, 0.15);
+}
+
+.blog-screenshot-row figcaption {
+  text-align: center;
+  margin-top: 0.6rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 blockquote {
   margin: 2rem 0;
   padding: 1rem 1.5rem;
