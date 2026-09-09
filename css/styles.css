@@ -204,6 +204,20 @@ small {
 
 .project-card {
   overflow: hidden;
+  position: relative;
+}
+
+.project-status {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
 }
 
 .project-placeholder {
