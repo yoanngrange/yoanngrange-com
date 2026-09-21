@@ -100,11 +100,15 @@ def send_email(subject, text_body):
         headers={
             "Authorization": f"Bearer {RESEND_API_KEY}",
             "Content-Type": "application/json",
+            "User-Agent": "weekly-traffic-recap/1.0",
         },
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return json.loads(resp.read())
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return json.loads(resp.read())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"Resend error {e.code}: {e.read().decode(errors='replace')}") from e
 
 
 def build_recap_body():
