@@ -42,7 +42,7 @@ jobs:
         env:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID: '153303233ced3d9f02ed7d8345a10ed9'
-          CF_SITE_TAG: '52f5a4da44074205ad162dbe0c498932'
+          CF_SITE_TAG: 'b96f4dda85a64d35a027162c97bac98d'
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           REPORT_EMAIL_TO: 'yoann.grange@gmail.com'
           REPORT_EMAIL_FROM: 'yoanngrange.com Reports <reports@yoanngrange.com>'
