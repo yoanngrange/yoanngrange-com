@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow, noarchive">
   <meta name="referrer" content="no-referrer">
-  <title>Le pain des voisins</title>
+  <title>Le pain des voisins du 4</title>
   <link rel="stylesheet" href="/pain/pain.css">
 </head>
 <body>
 <main>
-  <h1>Le pain des voisins</h1>
+  <h1>Le pain des voisins du 4</h1>
   <p class="sub">Pétri, façonné et cuit avec amour au 16e, livré chez vous par ascenseur.</p>
 
   <div class="info">
@@ -37,7 +37,11 @@
                 ? p.photos.map(url => `<img src="${esc(url)}" alt="${esc(p.nom)}" loading="lazy">`).join('')
                 : '<div class="noimg"></div>'}
             </div>
-            ${p.photos.length > 1 ? `<div class="dots">${p.photos.map((_, i) => `<button type="button" class="dot${i === 0 ? ' active' : ''}" aria-label="Photo ${i + 1}"></button>`).join('')}</div>` : ''}
+            ${p.photos.length > 1 ? `
+              <button type="button" class="arrow prev" aria-label="Photo précédente">‹</button>
+              <button type="button" class="arrow next" aria-label="Photo suivante">›</button>
+              <div class="dots">${p.photos.map((_, i) => `<button type="button" class="dot${i === 0 ? ' active' : ''}" aria-label="Photo ${i + 1}"></button>`).join('')}</div>
+            ` : ''}
           </div>
           <div class="body">
             <h2>${esc(p.nom)}</h2>
@@ -57,11 +61,15 @@
       const $track = $photos.querySelector('.photos-track');
       const dots = [...$photos.querySelectorAll('.dot')];
       if (!dots.length) return;
-      dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => $track.scrollTo({ left: $track.clientWidth * i, behavior: 'smooth' }));
-      });
+      const count = dots.length;
+      const goTo = i => $track.scrollTo({ left: $track.clientWidth * Math.max(0, Math.min(count - 1, i)), behavior: 'smooth' });
+      const current = () => Math.round($track.scrollLeft / $track.clientWidth);
+
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+      $photos.querySelector('.arrow.prev').addEventListener('click', () => goTo(current() - 1));
+      $photos.querySelector('.arrow.next').addEventListener('click', () => goTo(current() + 1));
       $track.addEventListener('scroll', () => {
-        const i = Math.round($track.scrollLeft / $track.clientWidth);
+        const i = current();
         dots.forEach((d, j) => d.classList.toggle('active', j === i));
       });
     });
