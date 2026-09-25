@@ -32,8 +32,8 @@ a { color: var(--accent); }
   max-height: 2.8em; overflow: hidden;
 }
 .more {
-  align-self: flex-start; margin: -4px 0 0; padding: 0; border: 0; background: none;
-  color: var(--accent); font-weight: 600; font-size: .85rem; cursor: pointer;
+  padding: 0; border: 0; background: none; font: inherit;
+  color: var(--accent); font-weight: 600; cursor: pointer;
 }
 .allergens { margin: 0; font-size: .85rem; color: var(--muted); }
 

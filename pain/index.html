@@ -35,7 +35,7 @@
   try {
     const cat = await catalogue();
     $products.innerHTML = cat.produits.length
-      ? cat.produits.map((p, i) => `
+      ? cat.produits.map(p => `
         <article class="card">
           <div class="photos">
             <div class="photos-track">
@@ -50,10 +50,7 @@
           </div>
           <div class="body">
             <h2>${esc(p.nom)}</h2>
-            ${p.description ? `
-              <p class="desc" data-nom="${esc(p.nom)}" data-full="${esc(p.description)}" id="desc-${i}">${esc(p.description)}</p>
-              <button type="button" class="more" data-target="desc-${i}" hidden>[...]</button>
-            ` : ''}
+            ${p.description ? `<p class="desc" data-nom="${esc(p.nom)}" data-full="${esc(p.description)}"></p>` : ''}
             <p class="allergens">Allergènes : ${p.allergenes.length ? esc(p.allergenes.join(', ')) : 'aucun des 14 allergènes majeurs'}</p>
             <p class="price">${euro(p.prix)}</p>
           </div>
@@ -80,9 +77,10 @@
     });
   }
 
-  // Descriptions are CSS-clamped to a fixed number of lines for a uniform
-  // card height; a "[...]" button appears only when text actually overflows,
-  // opening a popover with the full text.
+  // Descriptions are clamped to exactly two lines, with "[...]" as the last
+  // word on the second line (not a separate line below) when text is
+  // trimmed. Measured against the actual rendered width, so it holds at any
+  // breakpoint. Opens a popover with the full text on click.
   function setupDescriptions() {
     const $dialog = document.getElementById('desc-dialog');
     const $title = document.getElementById('desc-dialog-title');
@@ -90,16 +88,21 @@
     document.getElementById('desc-dialog-close').addEventListener('click', () => $dialog.close());
 
     document.querySelectorAll('.desc').forEach($desc => {
-      const $more = document.querySelector(`.more[data-target="${$desc.id}"]`);
-      if (!$more) return;
-      if ($desc.scrollHeight > $desc.clientHeight + 1) {
-        $more.hidden = false;
-        $more.addEventListener('click', () => {
-          $title.textContent = $desc.dataset.nom;
-          $text.textContent = $desc.dataset.full;
-          $dialog.showModal();
-        });
+      const full = $desc.dataset.full;
+      $desc.textContent = full;
+      if ($desc.scrollHeight <= $desc.clientHeight + 1) return; // fits fully, nothing to do
+
+      const words = full.split(' ');
+      let n = words.length - 1;
+      for (; n > 0; n--) {
+        $desc.innerHTML = `${esc(words.slice(0, n).join(' '))} <button type="button" class="more">[...]</button>`;
+        if ($desc.scrollHeight <= $desc.clientHeight + 1) break;
       }
+      $desc.querySelector('.more').addEventListener('click', () => {
+        $title.textContent = $desc.dataset.nom;
+        $text.textContent = full;
+        $dialog.showModal();
+      });
     });
   }
 })();
