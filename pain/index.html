@@ -14,30 +14,16 @@
   <p class="sub">Fait à la main. Contactez-moi pour commander.</p>
 
   <div class="info">
-    <p>📞 <a href="tel:+33A_REMPLIR">A_REMPLIR</a> — appelez-moi, ou envoyez-moi votre demande ci-dessous.</p>
+    <p>📞 <a href="tel:+33643677814">06 43 67 78 14</a> — appelez-moi, ou <a href="sms:+33643677814">envoyez-moi un SMS</a>.</p>
   </div>
 
   <div class="grid" id="products">Chargement…</div>
-
-  <form id="contact-form">
-    <h2>Envoyer une demande</h2>
-    <div class="field">
-      <label for="nom">Votre nom</label>
-      <input type="text" id="nom" name="nom" required maxlength="80" autocomplete="name">
-    </div>
-    <div class="field">
-      <label for="message">Votre demande</label>
-      <textarea id="message" name="message" required maxlength="300" rows="3" placeholder="Ex : 2 pains de campagne pour vendredi"></textarea>
-    </div>
-    <button type="submit">Envoyer par SMS</button>
-    <p class="msg" id="form-msg" role="status"></p>
-  </form>
 </main>
 
 <script src="/pain/pain.js"></script>
 <script>
 (async () => {
-  const { catalogue, contact, euro, esc } = PAIN;
+  const { catalogue, euro, esc } = PAIN;
   const $products = document.getElementById('products');
 
   try {
@@ -56,25 +42,6 @@
   } catch {
     $products.innerHTML = '<p class="error">Impossible de charger les produits. Réessayez dans un instant.</p>';
   }
-
-  const $form = document.getElementById('contact-form');
-  const $msg = document.getElementById('form-msg');
-  $form.addEventListener('submit', async e => {
-    e.preventDefault();
-    $msg.className = 'msg';
-    $msg.textContent = 'Envoi…';
-    const nom = document.getElementById('nom').value.trim();
-    const message = document.getElementById('message').value.trim();
-    try {
-      await contact({ nom, message });
-      $msg.className = 'msg ok';
-      $msg.textContent = 'Envoyé ! Je vous réponds au plus vite.';
-      $form.reset();
-    } catch (err) {
-      $msg.className = 'msg';
-      $msg.textContent = err.message || "Échec de l'envoi. Réessayez, ou appelez-moi directement.";
-    }
-  });
 })();
 </script>
 </body>
