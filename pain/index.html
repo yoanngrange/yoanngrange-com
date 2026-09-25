@@ -20,6 +20,12 @@
   <div class="list" id="products">Chargement…</div>
 </main>
 
+<dialog id="desc-dialog">
+  <h2 id="desc-dialog-title"></h2>
+  <p id="desc-dialog-text"></p>
+  <button type="button" id="desc-dialog-close">Fermer</button>
+</dialog>
+
 <script src="/pain/pain.js"></script>
 <script>
 (async () => {
@@ -29,7 +35,7 @@
   try {
     const cat = await catalogue();
     $products.innerHTML = cat.produits.length
-      ? cat.produits.map(p => `
+      ? cat.produits.map((p, i) => `
         <article class="card">
           <div class="photos">
             <div class="photos-track">
@@ -40,38 +46,60 @@
             ${p.photos.length > 1 ? `
               <button type="button" class="arrow prev" aria-label="Photo précédente">‹</button>
               <button type="button" class="arrow next" aria-label="Photo suivante">›</button>
-              <div class="dots">${p.photos.map((_, i) => `<button type="button" class="dot${i === 0 ? ' active' : ''}" aria-label="Photo ${i + 1}"></button>`).join('')}</div>
             ` : ''}
           </div>
           <div class="body">
             <h2>${esc(p.nom)}</h2>
-            ${p.description ? `<p class="desc">${esc(p.description)}</p>` : ''}
+            ${p.description ? `
+              <p class="desc" data-nom="${esc(p.nom)}" data-full="${esc(p.description)}" id="desc-${i}">${esc(p.description)}</p>
+              <button type="button" class="more" data-target="desc-${i}" hidden>[...]</button>
+            ` : ''}
             <p class="allergens">Allergènes : ${p.allergenes.length ? esc(p.allergenes.join(', ')) : 'aucun des 14 allergènes majeurs'}</p>
             <p class="price">${euro(p.prix)}</p>
           </div>
         </article>`).join('')
       : '<p class="empty">Aucun produit disponible pour le moment. Revenez bientôt !</p>';
     setupCarousels();
+    setupDescriptions();
   } catch {
     $products.innerHTML = '<p class="error">Impossible de charger les produits. Réessayez dans un instant.</p>';
   }
 
   function setupCarousels() {
     document.querySelectorAll('.photos').forEach($photos => {
+      const $prev = $photos.querySelector('.arrow.prev');
+      const $next = $photos.querySelector('.arrow.next');
+      if (!$prev) return;
       const $track = $photos.querySelector('.photos-track');
-      const dots = [...$photos.querySelectorAll('.dot')];
-      if (!dots.length) return;
-      const count = dots.length;
-      const goTo = i => $track.scrollTo({ left: $track.clientWidth * Math.max(0, Math.min(count - 1, i)), behavior: 'smooth' });
+      const count = $track.children.length;
       const current = () => Math.round($track.scrollLeft / $track.clientWidth);
+      const goTo = i => $track.scrollTo({ left: $track.clientWidth * Math.max(0, Math.min(count - 1, i)), behavior: 'smooth' });
 
-      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
-      $photos.querySelector('.arrow.prev').addEventListener('click', () => goTo(current() - 1));
-      $photos.querySelector('.arrow.next').addEventListener('click', () => goTo(current() + 1));
-      $track.addEventListener('scroll', () => {
-        const i = current();
-        dots.forEach((d, j) => d.classList.toggle('active', j === i));
-      });
+      $prev.addEventListener('click', () => goTo(current() - 1));
+      $next.addEventListener('click', () => goTo(current() + 1));
+    });
+  }
+
+  // Descriptions are CSS-clamped to a fixed number of lines for a uniform
+  // card height; a "[...]" button appears only when text actually overflows,
+  // opening a popover with the full text.
+  function setupDescriptions() {
+    const $dialog = document.getElementById('desc-dialog');
+    const $title = document.getElementById('desc-dialog-title');
+    const $text = document.getElementById('desc-dialog-text');
+    document.getElementById('desc-dialog-close').addEventListener('click', () => $dialog.close());
+
+    document.querySelectorAll('.desc').forEach($desc => {
+      const $more = document.querySelector(`.more[data-target="${$desc.id}"]`);
+      if (!$more) return;
+      if ($desc.scrollHeight > $desc.clientHeight + 1) {
+        $more.hidden = false;
+        $more.addEventListener('click', () => {
+          $title.textContent = $desc.dataset.nom;
+          $text.textContent = $desc.dataset.full;
+          $dialog.showModal();
+        });
+      }
     });
   }
 })();
