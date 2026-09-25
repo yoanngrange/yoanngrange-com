@@ -11,13 +11,13 @@
 <body>
 <main>
   <h1>Le pain des voisins</h1>
-  <p class="sub">Fait à la main. Contactez-moi pour commander.</p>
+  <p class="sub">Pétri, façonné et cuit avec amour au 16e, livré chez vous par ascenseur.</p>
 
   <div class="info">
-    <p>📞 <a href="tel:+33643677814">06 43 67 78 14</a> — appelez-moi, ou <a href="sms:+33643677814">envoyez-moi un SMS</a>.</p>
+    <p>📱 <a href="sms:+33643677814">Envoyez-moi un SMS au 06 43 67 78 14</a></p>
   </div>
 
-  <div class="grid" id="products">Chargement…</div>
+  <div class="list" id="products">Chargement…</div>
 </main>
 
 <script src="/pain/pain.js"></script>
@@ -31,16 +31,40 @@
     $products.innerHTML = cat.produits.length
       ? cat.produits.map(p => `
         <article class="card">
-          ${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.nom)}" loading="lazy">` : '<div class="noimg"></div>'}
+          <div class="photos">
+            <div class="photos-track">
+              ${p.photos.length
+                ? p.photos.map(url => `<img src="${esc(url)}" alt="${esc(p.nom)}" loading="lazy">`).join('')
+                : '<div class="noimg"></div>'}
+            </div>
+            ${p.photos.length > 1 ? `<div class="dots">${p.photos.map((_, i) => `<button type="button" class="dot${i === 0 ? ' active' : ''}" aria-label="Photo ${i + 1}"></button>`).join('')}</div>` : ''}
+          </div>
           <div class="body">
-            <div class="top"><h2>${esc(p.nom)}</h2><span class="price">${euro(p.prix)}</span></div>
+            <h2>${esc(p.nom)}</h2>
             ${p.description ? `<p class="desc">${esc(p.description)}</p>` : ''}
             <p class="allergens">Allergènes : ${p.allergenes.length ? esc(p.allergenes.join(', ')) : 'aucun des 14 allergènes majeurs'}</p>
+            <p class="price">${euro(p.prix)}</p>
           </div>
         </article>`).join('')
       : '<p class="empty">Aucun produit disponible pour le moment. Revenez bientôt !</p>';
+    setupCarousels();
   } catch {
     $products.innerHTML = '<p class="error">Impossible de charger les produits. Réessayez dans un instant.</p>';
+  }
+
+  function setupCarousels() {
+    document.querySelectorAll('.photos').forEach($photos => {
+      const $track = $photos.querySelector('.photos-track');
+      const dots = [...$photos.querySelectorAll('.dot')];
+      if (!dots.length) return;
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => $track.scrollTo({ left: $track.clientWidth * i, behavior: 'smooth' }));
+      });
+      $track.addEventListener('scroll', () => {
+        const i = Math.round($track.scrollLeft / $track.clientWidth);
+        dots.forEach((d, j) => d.classList.toggle('active', j === i));
+      });
+    });
   }
 })();
 </script>

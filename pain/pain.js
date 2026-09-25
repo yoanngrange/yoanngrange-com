@@ -26,13 +26,13 @@ const PAIN = (() => {
     const produits = records
       .map(r => {
         const f = r.fields;
-        const photo = (f[F.photo] || [])[0];
+        const photos = (f[F.photo] || []).map(p => p.thumbnails?.large?.url || p.url);
         return {
           id: r.id,
           nom: f[F.nom] || '',
           description: f[F.desc] || '',
           allergenes: f[F.allergenes] || [],
-          photo: photo ? (photo.thumbnails?.large?.url || photo.url) : null,
+          photos,
           prix: Number(f[F.prix] || 0),
           ordre: Number(f[F.ordre] ?? 999),
         };
