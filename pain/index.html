@@ -16,6 +16,7 @@
   <div class="info">
     <p>📱 <a href="sms:+33643677814">Envoyez-moi un SMS au 06 43 67 78 14</a></p>
   </div>
+  <p class="stage-notice" id="stage-notice" hidden></p>
 
   <div class="list" id="products">Chargement…</div>
 </main>
@@ -29,8 +30,20 @@
 <script src="/pain/pain.js"></script>
 <script>
 (async () => {
-  const { catalogue, euro, esc } = PAIN;
+  const { catalogue, stages, euro, fmt, esc } = PAIN;
   const $products = document.getElementById('products');
+
+  try {
+    const stageList = await stages();
+    if (stageList.length) {
+      const ranges = stageList
+        .map(s => s.debut === s.fin ? `le ${fmt(s.debut)}` : `entre ${fmt(s.debut)} et ${fmt(s.fin)}`)
+        .join(', ');
+      const $notice = document.getElementById('stage-notice');
+      $notice.textContent = `Livraisons impossibles ${ranges} (stages en boulangerie).`;
+      $notice.hidden = false;
+    }
+  } catch { /* info secondaire, pas bloquant */ }
 
   try {
     const cat = await catalogue();
