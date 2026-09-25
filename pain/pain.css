@@ -38,10 +38,10 @@ a { color: var(--accent); }
 }
 .allergens { margin: 0; font-size: .85rem; color: var(--muted); }
 
-.photos { position: relative; width: 220px; flex-shrink: 0; }
+.photos { position: relative; width: 240px; flex-shrink: 0; }
 .photos-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .photos-track::-webkit-scrollbar { display: none; }
-.photos-track img, .photos .noimg { flex: 0 0 100%; scroll-snap-align: start; width: 220px; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--info); }
+.photos-track img, .photos .noimg { flex: 0 0 100%; scroll-snap-align: start; width: 240px; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--info); }
 
 .arrow {
   position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px;
