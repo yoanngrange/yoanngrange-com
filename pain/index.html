@@ -93,29 +93,40 @@
   // Descriptions are clamped to exactly two lines, with "[...]" as the last
   // word on the second line (not a separate line below) when text is
   // trimmed. Measured against the actual rendered width, so it holds at any
-  // breakpoint. Opens a popover with the full text on click.
+  // breakpoint. Opens a popover with the full text on click. Re-measured on
+  // resize (debounced) since a live viewport drag doesn't otherwise trigger
+  // a recompute the way a fresh load at a given width does.
   function setupDescriptions() {
     const $dialog = document.getElementById('desc-dialog');
     const $title = document.getElementById('desc-dialog-title');
     const $text = document.getElementById('desc-dialog-text');
     document.getElementById('desc-dialog-close').addEventListener('click', () => $dialog.close());
 
-    document.querySelectorAll('.desc').forEach($desc => {
-      const full = $desc.dataset.full;
-      $desc.textContent = full;
-      if ($desc.scrollHeight <= $desc.clientHeight + 1) return; // fits fully, nothing to do
+    function clampAll() {
+      document.querySelectorAll('.desc').forEach($desc => {
+        const full = $desc.dataset.full;
+        $desc.textContent = full;
+        if ($desc.scrollHeight <= $desc.clientHeight + 1) return; // fits fully, nothing to do
 
-      const words = full.split(' ');
-      let n = words.length - 1;
-      for (; n > 0; n--) {
-        $desc.innerHTML = `${esc(words.slice(0, n).join(' '))} <button type="button" class="more">[...]</button>`;
-        if ($desc.scrollHeight <= $desc.clientHeight + 1) break;
-      }
-      $desc.querySelector('.more').addEventListener('click', () => {
-        $title.textContent = $desc.dataset.nom;
-        $text.textContent = full;
-        $dialog.showModal();
+        const words = full.split(' ');
+        let n = words.length - 1;
+        for (; n > 0; n--) {
+          $desc.innerHTML = `${esc(words.slice(0, n).join(' '))} <button type="button" class="more">[...]</button>`;
+          if ($desc.scrollHeight <= $desc.clientHeight + 1) break;
+        }
+        $desc.querySelector('.more').addEventListener('click', () => {
+          $title.textContent = $desc.dataset.nom;
+          $text.textContent = full;
+          $dialog.showModal();
+        });
       });
+    }
+
+    clampAll();
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(clampAll, 150);
     });
   }
 })();
