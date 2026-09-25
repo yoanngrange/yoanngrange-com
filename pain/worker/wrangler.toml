@@ -2,20 +2,11 @@ name = "pain-api"
 main = "src/index.js"
 compatibility_date = "2026-09-01"
 
-# 18:02 heure de Paris = 16:02 UTC (été) ou 17:02 UTC (hiver).
-# Les deux déclencheurs tournent ; le code n'agit que s'il est 18h à Paris.
-[triggers]
-crons = ["2 16 * * *", "2 17 * * *"]
-
 [vars]
 AIRTABLE_BASE = "appzrC3TnjonofSp2"
-SITE_URL = "https://yoanngrange.com"
 ALLOWED_ORIGINS = "https://yoanngrange.com,https://www.yoanngrange.com"
-FROM_EMAIL = "Pain <pain@yoanngrange.com>"
-ORDER_EMAIL = "A_REMPLIR@exemple.com"
 
 # Secrets (à définir avec `npx wrangler secret put NOM`) :
-#   AIRTABLE_TOKEN         — token Airtable (scopes data.records:read + data.records:write, base Pain voisins)
-#   STRIPE_SECRET_KEY      — clé secrète Stripe du compte Vraie Forêt (sk_live_… ou sk_test_…)
-#   STRIPE_WEBHOOK_SECRET  — secret du webhook (whsec_…)
-#   RESEND_API_KEY         — clé API Resend
+#   AIRTABLE_TOKEN   — token Airtable, scope data.records:read SEUL (base Pain voisins)
+#   FREE_MOBILE_USER   — identifiant "Notifications par SMS" (mobile.free.fr/moncompte → Options)
+#   FREE_MOBILE_APIKEY — clé associée

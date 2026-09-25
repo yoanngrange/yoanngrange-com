@@ -11,69 +11,69 @@
 <body>
 <main>
   <h1>Le pain des voisins</h1>
-  <p class="sub">Fait à la main, livré à votre porte, entre 8:00 et 12:00.</p>
+  <p class="sub">Fait à la main. Contactez-moi pour commander.</p>
 
-  <div class="info" id="info">Chargement…</div>
-  <div class="grid" id="products"></div>
+  <div class="info">
+    <p>📞 <a href="tel:+33A_REMPLIR">A_REMPLIR</a> — appelez-moi, ou envoyez-moi votre demande ci-dessous.</p>
+  </div>
+
+  <div class="grid" id="products">Chargement…</div>
+
+  <form id="contact-form">
+    <h2>Envoyer une demande</h2>
+    <div class="field">
+      <label for="nom">Votre nom</label>
+      <input type="text" id="nom" name="nom" required maxlength="80" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="message">Votre demande</label>
+      <textarea id="message" name="message" required maxlength="300" rows="3" placeholder="Ex : 2 pains de campagne pour vendredi"></textarea>
+    </div>
+    <button type="submit">Envoyer par SMS</button>
+    <p class="msg" id="form-msg" role="status"></p>
+  </form>
 </main>
-
-<div class="cartbar"><a class="btn" href="/pain/panier/">Voir le panier (<span data-cart-count>0</span>)</a></div>
 
 <script src="/pain/pain.js"></script>
 <script>
 (async () => {
-  const { cart, catalogue, euro, esc, infoHTML, updateCartBadge } = PAIN;
+  const { catalogue, contact, euro, esc } = PAIN;
   const $products = document.getElementById('products');
-  const $info = document.getElementById('info');
-  updateCartBadge();
 
-  let cat;
-  try { cat = await catalogue(); }
-  catch { $info.innerHTML = '<p class="error">Impossible de charger les produits. Réessayez dans un instant.</p>'; return; }
-
-  $info.innerHTML = infoHTML(cat);
-  if (!cat.dates.length) {
-    $info.innerHTML += '<p class="error">Aucune date de livraison n\'est disponible pour le moment.</p>';
+  try {
+    const cat = await catalogue();
+    $products.innerHTML = cat.produits.length
+      ? cat.produits.map(p => `
+        <article class="card">
+          ${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.nom)}" loading="lazy">` : '<div class="noimg"></div>'}
+          <div class="body">
+            <div class="top"><h2>${esc(p.nom)}</h2><span class="price">${euro(p.prix)}</span></div>
+            ${p.description ? `<p class="desc">${esc(p.description)}</p>` : ''}
+            <p class="allergens">Allergènes : ${p.allergenes.length ? esc(p.allergenes.join(', ')) : 'aucun des 14 allergènes majeurs'}</p>
+          </div>
+        </article>`).join('')
+      : '<p class="empty">Aucun produit disponible pour le moment. Revenez bientôt !</p>';
+  } catch {
+    $products.innerHTML = '<p class="error">Impossible de charger les produits. Réessayez dans un instant.</p>';
   }
-  if (!cat.produits.length) {
-    $products.innerHTML = '<p class="empty">Aucun produit disponible pour le moment. Revenez bientôt !</p>';
-    return;
-  }
 
-  const MAX = cat.maxQuantite;
-  $products.innerHTML = cat.produits.map(p => `
-    <article class="card" data-id="${esc(p.id)}">
-      ${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.nom)}" loading="lazy">` : '<div class="noimg"></div>'}
-      <div class="body">
-        <div class="top"><h2>${esc(p.nom)}</h2><span class="price">${euro(p.prix)}</span></div>
-        ${p.description ? `<p class="desc">${esc(p.description)}</p>` : ''}
-        <p class="allergens">Allergènes : ${p.allergenes.length ? esc(p.allergenes.join(', ')) : 'aucun des 14 allergènes majeurs'}</p>
-        <div class="add">
-          <input type="number" inputmode="numeric" min="1" max="${MAX}" value="1" aria-label="Quantité de ${esc(p.nom)}">
-          <button type="button">Ajouter au panier</button>
-        </div>
-        <p class="msg" role="status"></p>
-      </div>
-    </article>`).join('');
-
-  $products.addEventListener('click', e => {
-    if (e.target.tagName !== 'BUTTON') return;
-    const $card = e.target.closest('.card');
-    const $msg = $card.querySelector('.msg');
-    const qty = Number($card.querySelector('input').value);
-    const inCart = cart.qtyOf($card.dataset.id);
+  const $form = document.getElementById('contact-form');
+  const $msg = document.getElementById('form-msg');
+  $form.addEventListener('submit', async e => {
+    e.preventDefault();
     $msg.className = 'msg';
-
-    if (!Number.isInteger(qty) || qty < 1) { $msg.textContent = 'Indiquez une quantité d\'au moins 1.'; return; }
-    if (qty + inCart > MAX) {
-      $msg.textContent = `${MAX} maximum par produit : je produis à la main, chez moi, et ma capacité de production est limitée.`
-        + (inCart ? ` Vous en avez déjà ${inCart} dans le panier.` : '');
-      return;
+    $msg.textContent = 'Envoi…';
+    const nom = document.getElementById('nom').value.trim();
+    const message = document.getElementById('message').value.trim();
+    try {
+      await contact({ nom, message });
+      $msg.className = 'msg ok';
+      $msg.textContent = 'Envoyé ! Je vous réponds au plus vite.';
+      $form.reset();
+    } catch (err) {
+      $msg.className = 'msg';
+      $msg.textContent = err.message || "Échec de l'envoi. Réessayez, ou appelez-moi directement.";
     }
-    cart.add($card.dataset.id, qty);
-    updateCartBadge();
-    $msg.className = 'msg ok';
-    $msg.textContent = `Ajouté ! (${inCart + qty} dans le panier)`;
   });
 })();
 </script>
