@@ -80,7 +80,7 @@ h3 { font-size: 1rem; margin: 16px 0 6px; }
 .recipe summary::-webkit-details-marker { color: var(--accent); }
 .badge { font-size: .75rem; font-weight: 600; color: var(--error); background: var(--info); padding: 2px 8px; border-radius: 999px; }
 .recipe-body { padding: 0 16px 16px; }
-.recipe-durees { font-size: .85rem; color: var(--muted); margin: 4px 0 0; }
+.recipe-organigramme img { display: block; max-width: 100%; border-radius: 10px; border: 1px solid var(--line); margin-top: 8px; }
 
 .recipe-photos { display: flex; gap: 8px; overflow-x: auto; margin: 10px 0; }
 .recipe-photos img { flex: 0 0 auto; height: 140px; width: auto; border-radius: 10px; object-fit: cover; }
