@@ -12,6 +12,7 @@ const PAIN = (() => {
       nom: 'fldvy3GzWs9v7ICWH', desc: 'fldRyXCi7HEoGAqPP', allergenes: 'fld4jQ0m0XcdirDV6', photo: 'fldFHEqULeM72Tezu',
       prix: 'fld4aYD112jiR1WW6', ordre: 'fldAPA2LEefe66c8w', actif: 'fld9F61a4tGUuWSgD',
       recetteOrganigramme: 'flddv4s8YoTfLafyN', recetteIngredients: 'fldmtHiDn0bTNjxXK', recetteEtapes: 'fldWlNfJnFrbmsJB7',
+      recetteTempBase: 'fld9aFqXqgjjebeNS',
     },
     s: { debut: 'fldo5fxAw4dHSLWvE', fin: 'fldKwYyUpi28nqS3j' },
   };
@@ -69,6 +70,7 @@ const PAIN = (() => {
           photos,
           actif: !!f[F.p.actif],
           organigramme: (f[F.p.recetteOrganigramme] || []).map(a => a.thumbnails?.large?.url || a.url),
+          tempBase: f[F.p.recetteTempBase] ?? null,
           ingredients: parseSections(f[F.p.recetteIngredients]),
           etapes: parseSections(f[F.p.recetteEtapes]),
           ordre: Number(f[F.p.ordre] ?? 999),
