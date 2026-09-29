@@ -8,7 +8,11 @@ const PAIN = (() => {
     tables: { produits: 'tblSKTagNk2Ovmmdj', stages: 'tblVrD5So041wr6tp' },
   };
   const F = {
-    p: { nom: 'fldvy3GzWs9v7ICWH', desc: 'fldRyXCi7HEoGAqPP', allergenes: 'fld4jQ0m0XcdirDV6', photo: 'fldFHEqULeM72Tezu', prix: 'fld4aYD112jiR1WW6', ordre: 'fldAPA2LEefe66c8w' },
+    p: {
+      nom: 'fldvy3GzWs9v7ICWH', desc: 'fldRyXCi7HEoGAqPP', allergenes: 'fld4jQ0m0XcdirDV6', photo: 'fldFHEqULeM72Tezu',
+      prix: 'fld4aYD112jiR1WW6', ordre: 'fldAPA2LEefe66c8w', actif: 'fld9F61a4tGUuWSgD',
+      recetteDurees: 'fldscakmzCuGNSH8e', recetteIngredients: 'fldmtHiDn0bTNjxXK', recetteEtapes: 'fldWlNfJnFrbmsJB7',
+    },
     s: { debut: 'fldo5fxAw4dHSLWvE', fin: 'fldKwYyUpi28nqS3j' },
   };
 
@@ -49,6 +53,40 @@ const PAIN = (() => {
     return { produits };
   }
 
+  // Tous les produits (actifs ou non — la page recettes est un outil interne),
+  // avec leurs fiches techniques. Pas de prix : usage interne uniquement.
+  async function recettes() {
+    const records = await airtableList(AT.tables.produits);
+    return records
+      .map(r => {
+        const f = r.fields;
+        const photos = (f[F.p.photo] || []).map(p => p.thumbnails?.large?.url || p.url);
+        return {
+          id: r.id,
+          nom: f[F.p.nom] || '',
+          allergenes: f[F.p.allergenes] || [],
+          photos,
+          actif: !!f[F.p.actif],
+          durees: f[F.p.recetteDurees] || '',
+          ingredients: parseSections(f[F.p.recetteIngredients]),
+          etapes: parseSections(f[F.p.recetteEtapes]),
+          ordre: Number(f[F.p.ordre] ?? 999),
+        };
+      })
+      .filter(p => p.nom)
+      .sort((a, b) => a.ordre - b.ordre || a.nom.localeCompare(b.nom, 'fr'));
+  }
+
+  // "Titre\n- item\n- item\n\nTitre2\n- item" -> [{titre, items: [...]}, ...]
+  function parseSections(text) {
+    if (!text) return [];
+    return text.split(/\n\s*\n/).map(block => {
+      const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+      const [titre, ...rest] = lines;
+      return { titre, items: rest.map(l => l.replace(/^[-•]\s*/, '')) };
+    }).filter(s => s.titre);
+  }
+
   // Périodes de stage non encore terminées (fin >= aujourd'hui), triées.
   async function stages() {
     const records = await airtableList(AT.tables.stages);
@@ -63,5 +101,5 @@ const PAIN = (() => {
   const fmt = ymd => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(`${ymd}T12:00:00Z`));
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  return { catalogue, stages, euro, fmt, esc };
+  return { catalogue, recettes, stages, euro, fmt, esc };
 })();

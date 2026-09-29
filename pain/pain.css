@@ -69,3 +69,31 @@ a { color: var(--accent); }
   font-size: 16px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;
 }
 #desc-dialog-close:hover { background: var(--info); color: var(--ink); }
+
+/* /pain/recipes */
+.back-link { margin: 0 0 12px; font-size: .9rem; }
+.back-link a { text-decoration: none; }
+h3 { font-size: 1rem; margin: 16px 0 6px; }
+
+.recipe { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; }
+.recipe summary { padding: 14px 16px; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.recipe summary::-webkit-details-marker { color: var(--accent); }
+.badge { font-size: .75rem; font-weight: 600; color: var(--error); background: var(--info); padding: 2px 8px; border-radius: 999px; }
+.recipe-body { padding: 0 16px 16px; }
+.recipe-durees { font-size: .85rem; color: var(--muted); margin: 4px 0 0; }
+
+.recipe-photos { display: flex; gap: 8px; overflow-x: auto; margin: 10px 0; }
+.recipe-photos img { flex: 0 0 auto; height: 140px; width: auto; border-radius: 10px; object-fit: cover; }
+
+.recipe-body ul, .recipe-body ol { margin: 0 0 12px; padding-left: 20px; }
+.recipe-body li { margin: 2px 0; }
+.empty.small { padding: 0; text-align: left; font-size: .9rem; }
+
+.print-btn { margin-top: 8px; }
+
+@media print {
+  .back-link, .sub, .print-btn { display: none; }
+  details:not([open]) { display: none; }
+  .recipe { border: 0; }
+  .recipe summary { cursor: default; }
+}
