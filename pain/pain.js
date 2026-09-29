@@ -33,7 +33,7 @@ const PAIN = (() => {
   }
 
   async function catalogue() {
-    const records = await airtableList(AT.tables.produits, { filterByFormula: '{Actif}' });
+    const records = await airtableList(AT.tables.produits);
     const produits = records
       .map(r => {
         const f = r.fields;
@@ -46,9 +46,10 @@ const PAIN = (() => {
           photos,
           prix: Number(f[F.p.prix] || 0),
           ordre: Number(f[F.p.ordre] ?? 999),
+          actif: !!f[F.p.actif],
         };
       })
-      .filter(p => p.nom && p.prix > 0)
+      .filter(p => p.nom && p.prix > 0 && p.actif)
       .sort((a, b) => a.ordre - b.ordre || a.nom.localeCompare(b.nom, 'fr'));
     return { produits };
   }
