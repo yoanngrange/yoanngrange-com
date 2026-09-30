@@ -27,7 +27,7 @@
     if (!sections.length) return '<p class="empty small">Pas encore renseigné.</p>';
     const tag = ordered ? 'ol' : 'ul';
     return sections.map(s => `
-      <h4>${esc(s.titre)}</h4>
+      ${s.titre ? `<h4>${esc(s.titre)}</h4>` : ''}
       <${tag}>${s.items.map(i => `<li>${esc(i)}</li>`).join('')}</${tag}>
     `).join('');
   }

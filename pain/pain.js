@@ -81,13 +81,18 @@ const PAIN = (() => {
   }
 
   // "Titre\n- item\n- item\n\nTitre2\n- item" -> [{titre, items: [...]}, ...]
+  // A block whose first line is already a bullet ("- item") has no title —
+  // every line is an item (this happens when someone types a flat list
+  // directly in Airtable without a heading line).
   function parseSections(text) {
     if (!text) return [];
     return text.split(/\n\s*\n/).map(block => {
       const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
-      const [titre, ...rest] = lines;
-      return { titre, items: rest.map(l => l.replace(/^[-•]\s*/, '')) };
-    }).filter(s => s.titre);
+      const isBullet = l => /^[-•]\s*/.test(l);
+      const titre = isBullet(lines[0]) ? null : lines[0];
+      const itemLines = isBullet(lines[0]) ? lines : lines.slice(1);
+      return { titre, items: itemLines.map(l => l.replace(/^[-•]\s*/, '')) };
+    }).filter(s => s.titre || s.items.length);
   }
 
   // Périodes de stage non encore terminées (fin >= aujourd'hui), triées.
