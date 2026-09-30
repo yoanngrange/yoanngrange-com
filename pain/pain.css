@@ -89,6 +89,7 @@ h4 { font-size: .9rem; font-weight: 600; color: var(--muted); margin: 12px 0 4px
 
 .recipe-body ul, .recipe-body ol { margin: 0 0 12px; padding-left: 20px; }
 .recipe-body li { margin: 2px 0; }
+.recipe-body p { margin: 0 0 12px; }
 .empty.small { padding: 0; text-align: left; font-size: .9rem; }
 
 .print-btn { margin-top: 8px; }

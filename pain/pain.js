@@ -11,7 +11,7 @@ const PAIN = (() => {
     p: {
       nom: 'fldvy3GzWs9v7ICWH', desc: 'fldRyXCi7HEoGAqPP', allergenes: 'fld4jQ0m0XcdirDV6', photo: 'fldFHEqULeM72Tezu',
       prix: 'fld4aYD112jiR1WW6', ordre: 'fldAPA2LEefe66c8w', actif: 'fld9F61a4tGUuWSgD',
-      recetteOrganigramme: 'flddv4s8YoTfLafyN', recetteIngredients: 'fldmtHiDn0bTNjxXK', recetteEtapes: 'fldWlNfJnFrbmsJB7',
+      recetteOrganigramme: 'flddv4s8YoTfLafyN', recetteIngredients: 'fldXUYoM97Bp3aARu', recetteEtapes: 'fldL4fH1TlFXq8DQo',
       recetteTempBase: 'fld9aFqXqgjjebeNS',
     },
     s: { debut: 'fldo5fxAw4dHSLWvE', fin: 'fldKwYyUpi28nqS3j' },
@@ -71,8 +71,8 @@ const PAIN = (() => {
           actif: !!f[F.p.actif],
           organigramme: (f[F.p.recetteOrganigramme] || []).map(a => a.thumbnails?.large?.url || a.url),
           tempBase: f[F.p.recetteTempBase] ?? null,
-          ingredients: parseSections(f[F.p.recetteIngredients]),
-          etapes: parseSections(f[F.p.recetteEtapes]),
+          ingredientsMd: f[F.p.recetteIngredients] || '',
+          etapesMd: f[F.p.recetteEtapes] || '',
           ordre: Number(f[F.p.ordre] ?? 999),
         };
       })
@@ -80,19 +80,34 @@ const PAIN = (() => {
       .sort((a, b) => a.ordre - b.ordre || a.nom.localeCompare(b.nom, 'fr'));
   }
 
-  // "Titre\n- item\n- item\n\nTitre2\n- item" -> [{titre, items: [...]}, ...]
-  // A block whose first line is already a bullet ("- item") has no title —
-  // every line is an item (this happens when someone types a flat list
-  // directly in Airtable without a heading line).
-  function parseSections(text) {
-    if (!text) return [];
-    return text.split(/\n\s*\n/).map(block => {
-      const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
-      const isBullet = l => /^[-•]\s*/.test(l);
-      const titre = isBullet(lines[0]) ? null : lines[0];
-      const itemLines = isBullet(lines[0]) ? lines : lines.slice(1);
-      return { titre, items: itemLines.map(l => l.replace(/^[-•]\s*/, '')) };
-    }).filter(s => s.titre || s.items.length);
+  // Small Markdown -> HTML renderer for the recipe fields (Airtable "Rich
+  // text" fields, read back as Markdown). Supports just what recipes need:
+  // headings (any depth, all rendered <h4>, one level below the page's own
+  // <h3> sections), bullet lists, numbered lists, bold/italic, and plain
+  // lines as paragraphs. Escapes text first so raw HTML in a field can't
+  // leak into the page, then turns markdown syntax into real tags.
+  function markdown(text) {
+    if (!text) return '';
+    const inline = s => esc(s)
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/(?:^|(?<=\s))\*(\S(?:.*?\S)?)\*(?=\s|$)/g, '<em>$1</em>');
+    let html = '', list = null;
+    const closeList = () => { if (list) { html += `</${list}>`; list = null; } };
+    for (const raw of text.split('\n')) {
+      const line = raw.trim();
+      let m;
+      if (!line) { closeList(); }
+      else if ((m = line.match(/^#{1,6}\s+(.*)$/))) { closeList(); html += `<h4>${inline(m[1])}</h4>`; }
+      else if ((m = line.match(/^[-•]\s+(.*)$/))) {
+        if (list !== 'ul') { closeList(); html += '<ul>'; list = 'ul'; }
+        html += `<li>${inline(m[1])}</li>`;
+      } else if ((m = line.match(/^\d+[.)]\s+(.*)$/))) {
+        if (list !== 'ol') { closeList(); html += '<ol>'; list = 'ol'; }
+        html += `<li>${inline(m[1])}</li>`;
+      } else { closeList(); html += `<p>${inline(line)}</p>`; }
+    }
+    closeList();
+    return html;
   }
 
   // Périodes de stage non encore terminées (fin >= aujourd'hui), triées.
@@ -109,5 +124,5 @@ const PAIN = (() => {
   const fmt = ymd => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(`${ymd}T12:00:00Z`));
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  return { catalogue, recettes, stages, euro, fmt, esc };
+  return { catalogue, recettes, stages, euro, fmt, esc, markdown };
 })();

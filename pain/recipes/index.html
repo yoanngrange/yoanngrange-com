@@ -20,17 +20,10 @@
 <script src="/pain/pain.js"></script>
 <script>
 (async () => {
-  const { recettes, esc } = PAIN;
+  const { recettes, esc, markdown } = PAIN;
   const $recipes = document.getElementById('recipes');
 
-  function renderSections(sections, ordered) {
-    if (!sections.length) return '<p class="empty small">Pas encore renseigné.</p>';
-    const tag = ordered ? 'ol' : 'ul';
-    return sections.map(s => `
-      ${s.titre ? `<h4>${esc(s.titre)}</h4>` : ''}
-      <${tag}>${s.items.map(i => `<li>${esc(i)}</li>`).join('')}</${tag}>
-    `).join('');
-  }
+  const md = text => text ? markdown(text) : '<p class="empty small">Pas encore renseigné.</p>';
 
   try {
     const list = await recettes();
@@ -57,10 +50,10 @@
           ${p.tempBase != null ? `<p class="temp-base">Température de base (TB) : ${p.tempBase} °C</p>` : ''}
 
           <h3>Ingrédients</h3>
-          ${renderSections(p.ingredients, false)}
+          ${md(p.ingredientsMd)}
 
           <h3>Étapes</h3>
-          ${renderSections(p.etapes, true)}
+          ${md(p.etapesMd)}
 
           <button type="button" class="print-btn" data-target="recipe-${i}">Imprimer / Exporter en PDF</button>
         </div>
