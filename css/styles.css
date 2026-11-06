@@ -131,6 +131,31 @@ blockquote p:last-child {
   margin-bottom: 0;
 }
 
+/* Pull quote: a short line lifted out of the post body and set apart */
+blockquote.pull-quote {
+  margin: 2.5rem 0;
+  padding: 1.25rem 0.5rem 1.5rem;
+  border-left: 0;
+  border-top: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  border-radius: 0;
+  background: none;
+  color: var(--primary-dark);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
+blockquote.pull-quote::before {
+  content: "\201C";
+  display: block;
+  font-size: 3.5rem;
+  font-style: normal;
+  line-height: 1;
+  color: var(--accent);
+}
+
 small {
   font-size: 0.95rem;
 }
@@ -428,6 +453,11 @@ html.lang-en [data-lang="fr"] {
 
 html.lang-fr [data-lang="en"] {
   display: none !important;
+}
+
+/* Blog post footer: back-to-home button above the language switch */
+footer.text-center {
+  margin: 3rem 0 1.5rem;
 }
 
 .footer-lang {
