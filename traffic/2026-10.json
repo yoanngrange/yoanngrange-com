@@ -1,0 +1,23 @@
+{
+  "month": "2026-10",
+  "previous_month": "2026-09",
+  "generated_at": "2026-11-16T22:22:41Z",
+  "sites": {
+    "yoanngrange.com": {
+      "pageviews": 130,
+      "previous_pageviews": 30
+    },
+    "vraieforet.com": {
+      "pageviews": 70,
+      "previous_pageviews": 30
+    },
+    "simplekatorza.com": {
+      "pageviews": 80,
+      "previous_pageviews": 10
+    },
+    "fournyl.com": {
+      "pageviews": 0,
+      "previous_pageviews": 0
+    }
+  }
+}
