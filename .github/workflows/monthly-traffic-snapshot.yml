@@ -1,0 +1,60 @@
+name: Monthly traffic snapshot
+
+# Saves last month's Cloudflare Web Analytics page views for all four sites to
+# traffic/YYYY-MM.json on the `traffic-data` branch (not served by GitHub
+# Pages). The claude.ai "Monthly website sync check" routine (1st of the month,
+# 07:00 UTC) reads that file for the traffic part of its email, because its
+# cloud environment can't call the Cloudflare GraphQL API itself.
+
+on:
+  schedule:
+    - cron: '0 4 1 * *' # 1st of the month, 04:00 UTC: well before the 07:00 UTC routine
+  workflow_dispatch:
+    inputs:
+      month:
+        description: 'Optional: month to snapshot as YYYY-MM (default: last month)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: traffic-data
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch page views from Cloudflare
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          MONTH: ${{ github.event.inputs.month }}
+        run: |
+          python3 scripts/monthly_traffic_snapshot.py > "$RUNNER_TEMP/snapshot.json"
+          cat "$RUNNER_TEMP/snapshot.json"
+
+      - name: Save to the traffic-data branch
+        run: |
+          month=$(python3 -c "import json,sys; print(json.load(open(sys.argv[1]))['month'])" "$RUNNER_TEMP/snapshot.json")
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if git ls-remote --exit-code --heads origin traffic-data >/dev/null; then
+            git fetch --depth=1 origin traffic-data
+            git switch -c traffic-data FETCH_HEAD
+          else
+            git switch --orphan traffic-data
+          fi
+          mkdir -p traffic
+          cp "$RUNNER_TEMP/snapshot.json" "traffic/$month.json"
+          git add "traffic/$month.json"
+          if git diff --cached --quiet; then
+            echo "traffic/$month.json unchanged"
+          else
+            git commit -m "Traffic snapshot $month"
+            git push origin traffic-data
+          fi
