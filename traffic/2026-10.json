@@ -1,23 +1,31 @@
 {
   "month": "2026-10",
   "previous_month": "2026-09",
-  "generated_at": "2026-11-16T22:22:41Z",
+  "generated_at": "2026-11-18T07:59:43Z",
   "sites": {
     "yoanngrange.com": {
       "pageviews": 130,
-      "previous_pageviews": 30
+      "visits": 130,
+      "previous_pageviews": 30,
+      "previous_visits": 30
     },
     "vraieforet.com": {
       "pageviews": 70,
-      "previous_pageviews": 30
+      "visits": 60,
+      "previous_pageviews": 30,
+      "previous_visits": 30
     },
     "simplekatorza.com": {
       "pageviews": 80,
-      "previous_pageviews": 10
+      "visits": 40,
+      "previous_pageviews": 10,
+      "previous_visits": 10
     },
     "fournyl.com": {
       "pageviews": 0,
-      "previous_pageviews": 0
+      "visits": 0,
+      "previous_pageviews": 0,
+      "previous_visits": 0
     }
   }
 }
