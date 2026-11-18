@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch one calendar month of Cloudflare Web Analytics page views (plus the
+"""Fetch one calendar month of Cloudflare Web Analytics page views and visits (plus the
 month before, for comparison) for every site in SITES, and print it as JSON.
 
 Runs from GitHub Actions on the 1st of each month. The workflow stores the
@@ -37,6 +37,7 @@ query($accountTag: string!, $siteTag: string!, $start: string!, $end: string!) {
         filter: {siteTag: $siteTag, datetime_geq: $start, datetime_leq: $end}
       ) {
         count
+        sum { visits }
       }
     }
   }
@@ -54,7 +55,8 @@ def month_bounds(first):
     return f"{first.isoformat()}T00:00:00Z", f"{last.isoformat()}T23:59:59Z"
 
 
-def pageviews(site_tag, first):
+def traffic(site_tag, first):
+    """Return (pageviews, visits) for the calendar month starting at `first`."""
     start, end = month_bounds(first)
     body = json.dumps({
         "query": QUERY,
@@ -74,7 +76,9 @@ def pageviews(site_tag, first):
     if not accounts:
         raise RuntimeError("account not found")
     groups = accounts[0]["rumPageloadEventsAdaptiveGroups"]
-    return groups[0]["count"] if groups else 0
+    if not groups:
+        return 0, 0
+    return groups[0]["count"], (groups[0].get("sum") or {}).get("visits") or 0
 
 
 def main():
@@ -88,7 +92,14 @@ def main():
     sites = {}
     for name, tag in SITES.items():
         try:
-            sites[name] = {"pageviews": pageviews(tag, target), "previous_pageviews": pageviews(tag, before)}
+            pv, visits = traffic(tag, target)
+            prev_pv, prev_visits = traffic(tag, before)
+            sites[name] = {
+                "pageviews": pv,
+                "visits": visits,
+                "previous_pageviews": prev_pv,
+                "previous_visits": prev_visits,
+            }
         except urllib.error.HTTPError as e:
             sites[name] = {"error": f"HTTP {e.code}"}
         except Exception as e:  # network, schema or GraphQL error: record it, keep going

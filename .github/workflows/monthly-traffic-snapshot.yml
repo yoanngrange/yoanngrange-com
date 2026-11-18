@@ -1,6 +1,6 @@
 name: Monthly traffic snapshot
 
-# Saves last month's Cloudflare Web Analytics page views for all four sites to
+# Saves last month's Cloudflare Web Analytics page views and visits for all four sites to
 # traffic/YYYY-MM.json on the `traffic-data` branch (not served by GitHub
 # Pages). The claude.ai "Monthly website sync check" routine (1st of the month,
 # 07:00 UTC) reads that file for the traffic part of its email, because its
